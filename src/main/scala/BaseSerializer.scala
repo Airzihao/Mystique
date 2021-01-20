@@ -7,6 +7,9 @@ import io.netty.buffer.ByteBuf
  * @Modified By:
  */
 trait BaseSerializer {
+  def writeLong(byteBuf: ByteBuf, value: Long): Unit
+  def readLong(byteBuf: ByteBuf): Long
+
   def writeInt(byteBuf: ByteBuf, value: Int): Unit
   def readInt(byteBuf: ByteBuf): Int
 
@@ -27,4 +30,10 @@ trait BaseSerializer {
 
   def writeBoolean(byteBuf: ByteBuf, value: Boolean): Unit
   def readBoolean(byteBuf: ByteBuf): Boolean
+
+  def export(byteBuf: ByteBuf): Array[Byte] = {
+    val dst = new Array[Byte](byteBuf.writerIndex())
+    byteBuf.readBytes(dst)
+    dst
+  }
 }

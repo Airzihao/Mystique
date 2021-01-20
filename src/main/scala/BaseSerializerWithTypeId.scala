@@ -5,18 +5,19 @@ import io.netty.buffer.ByteBuf/**
  * @Modified By:
  */
 object BaseSerializerWithTypeId extends BaseSerializer {
-  def readValue(byteBuf: ByteBuf): AnyVal = {
-    val typeId = byteBuf.readByte().toInt
-    typeId match {
-      case TypeId.INT => byteBuf.readInt()
-      case TypeId.BOOLEAN => byteBuf.readBoolean()
-      case TypeId.CHAR => BaseSerializerWithoutTypeId.readChar(byteBuf)
-      case TypeId.DOUBLE => byteBuf.readDouble()
-      case TypeId.FLOAT => byteBuf.readFloat()
-      case TypeId.LONG =>  byteBuf.readLong()
-      case TypeId.STRING => BaseSerializerWithoutTypeId.readString(byteBuf)
-    }
-  }
+//  def readValue(byteBuf: ByteBuf): AnyVal = {
+//    val typeId = byteBuf.readByte().toInt
+//    typeId match {
+//      case TypeId.INT => byteBuf.readInt()
+//      case TypeId.BOOLEAN => byteBuf.readBoolean()
+//      case TypeId.CHAR => BaseSerializerWithoutTypeId.readChar(byteBuf)
+//      case TypeId.DOUBLE => byteBuf.readDouble()
+//      case TypeId.FLOAT => byteBuf.readFloat()
+//      case TypeId.LONG =>  byteBuf.readLong()
+//      case TypeId.STRING => BaseSerializerWithoutTypeId.readString(byteBuf)
+////      case _ => BaseSerializerWithoutTypeId.readString(byteBuf)
+//    }
+//  }
 
   override def writeInt(byteBuf: ByteBuf, value: Int): Unit = {
     byteBuf.writeByte(TypeId.INT)
@@ -79,5 +80,15 @@ object BaseSerializerWithTypeId extends BaseSerializer {
   override def readBoolean(byteBuf: ByteBuf): Boolean = {
     byteBuf.readByte()
     byteBuf.readBoolean()
+  }
+
+  override def writeLong(byteBuf: ByteBuf, value: Long): Unit = {
+    byteBuf.writeByte(TypeId.LONG)
+    byteBuf.writeLong(value)
+  }
+
+  override def readLong(byteBuf: ByteBuf): Long = {
+    byteBuf.readByte()
+    byteBuf.readLong()
   }
 }

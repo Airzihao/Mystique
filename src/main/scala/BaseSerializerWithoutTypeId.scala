@@ -50,6 +50,8 @@ object BaseSerializerWithoutTypeId extends BaseSerializer {
     byteBuf.readInt()
   }
 
+
+
   override def writeString(byteBuf: ByteBuf, value: String): Unit = {
     val strInBytes = value.getBytes
     val length = strInBytes.length
@@ -63,4 +65,11 @@ object BaseSerializerWithoutTypeId extends BaseSerializer {
     bytes.toString
   }
 
+  override def writeLong(byteBuf: ByteBuf, value: Long): Unit = {
+    byteBuf.writeLong(value)
+  }
+
+  override def readLong(byteBuf: ByteBuf): Long = {
+    byteBuf.readLong()
+  }
 }
