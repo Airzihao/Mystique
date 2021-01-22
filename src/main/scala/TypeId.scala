@@ -13,5 +13,10 @@ object TypeId {
   val CHAR = 6
   val STRING = 7
   val BOOLEAN = 8
+  val ANY = 9
+
+  val SEQ_OF = 10
+  val SET_OF = 11
+  val MAP_OF = 12
 
 }
